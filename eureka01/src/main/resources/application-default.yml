@@ -1,0 +1,11 @@
+#server:
+#  port: 6161
+#spring:
+#  application:
+#    name: eureka-server
+eureka:
+  # eureka实例相关配置
+  instance:
+    # 集群中各服务之间互相访问默认使用hostname进行，但是这样需要在各个机器上配置hosts文件。将该配置设为true，可以尽量使用ip进行通信，默认false
+    prefer-ip-address: false
+    appname: eureka-server

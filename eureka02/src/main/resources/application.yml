@@ -2,31 +2,32 @@ server:
   port: 17652
 spring:
   application:
-    name: eureka02
+    name: eureka-server
 eureka:
   # eureka实例相关配置
   instance:
     # eureka实例主机名，在hosts文件中要有对应
-    hostname: ${spring.cloud.client.ip-address}
+#    hostname: ${spring.cloud.client.ip-address}
+    hostname: peer2
 
     # 注册到eureka中的唯一标记，目前作用仅是显示
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
     # 集群中各服务之间互相访问默认使用hostname进行，但是这样需要在各个机器上配置hosts文件。将该配置设为true，可以尽量使用ip进行通信
-    prefer-ip-address: true
+    prefer-ip-address: false
 
-  #    appname: eureka02
+#    appname: eureka-server
   client:
     service-url:
       # 集群环境中，其它的eureka节点
-      defaultZone: http://peer1:17651/eureka/
+      defaultZone: http://192.168.6.135:17653/eureka/
 #      defaultZone: http://peer1:17651/eureka/,http://peer3:17653/eureka/
     # 指示此实例是否应将其信息注册到eureka服务器以供其他人发现
-    register-with-eureka: true
+#    register-with-eureka: true
     # 表示是否此client从eureka server拉取eureka注册信息。
-    fetch-registry: true
-  server:
+#    fetch-registry: true
+#  server:
     # 自我保护模式，默认打开（当出现网络分区导致丢失过多客户端时，不删除任何微服务）
-    enable-self-preservation: false
+#    enable-self-preservation: false
     # eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
-    eviction-interval-timer-in-ms: 10000
+#    eviction-interval-timer-in-ms: 10000

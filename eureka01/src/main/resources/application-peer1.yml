@@ -1,0 +1,9 @@
+server:
+  port: 6161
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    service-url:
+      # 集群环境中，配置其它的eureka节点地址
+      defaultZone: http://peer2:6162/eureka/

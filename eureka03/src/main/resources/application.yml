@@ -2,7 +2,7 @@ server:
   port: 17653
 spring:
   application:
-    name: eureka03
+    name: eureka-server
 eureka:
   # eureka实例相关配置
   instance:
@@ -13,13 +13,13 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
     # 集群中各服务之间互相访问默认使用hostname进行，但是这样需要在各个机器上配置hosts文件。将该配置设为true，可以尽量使用ip进行通信
-    prefer-ip-address: true
+    prefer-ip-address: false
 
   #    appname: eureka03
   client:
     service-url:
       # 集群环境中，其它的eureka节点
-      defaultZone: http://peer1:17651/eureka/,http://peer2:17652/eureka/
+      defaultZone: http://192.168.6.131:17652/eureka/
     # 指示此实例是否应将其信息注册到eureka服务器以供其他人发现
     register-with-eureka: true
     # 表示是否此client从eureka server拉取eureka注册信息。
