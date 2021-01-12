@@ -1,0 +1,107 @@
+server:
+  port: 17657
+spring:
+  application:
+    name: product
+  main:
+    # bean定义是否可被覆盖
+    allow-bean-definition-overriding: true
+  cloud:
+    loadbalancer:
+      ribbon:
+        # ribbon负载均衡开关
+        enabled: true
+#  profiles:
+#    active: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:17651/eureka/,http://localhost:17652/eureka/
+# 端点管理
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      # 注意：和 com.vic.consumer.config.ServletConfig 指定要相同
+#      base-path: /quorum
+# feign相关配置
+# 如果未配置default，connectTimeout默认10s，readTimeout默认60s，参考类 feign.Request.Options
+# 默认关闭Feign的重试机制
+feign:
+  client:
+    config:
+      # feign默认配置，可指定服务名声明相关feign配置
+      default:
+        # feign接口默认连接超时配置
+        connectTimeout: 10000
+        # feign接口默认读取超时配置
+        readTimeout: 60000
+        loggerLevel: full
+  hystrix:
+    # hystrix断路器开关
+    # If true, an OpenFeign client will be wrapped with a Hystrix circuit breaker
+    enabled: true
+  # feign接口连接超时时间（等于ribbon超时时间+hystrix超时时间）
+  #  httpclient:
+  #    connection-timeout: 20000
+  # feign压缩
+  compression:
+    # feign请求压缩相关
+    request:
+      # 压缩开关
+      enabled: true
+      # The list of supported mime types.
+      mime-types: text/html,application/xml,application/json
+      # The minimum threshold content size.
+      min-request-size: 2048
+    # feign响应压缩相关
+    response:
+      # 压缩开关
+      enabled: true
+
+# feign的负载均衡ribbon配置，spring cloud feign 默认开启支持ribbon，开关在spring.cloud.loadbalancer.ribbon.enabled配置
+# ribbon的全局配置
+ribbon:
+  # ribbon请求连接实例的超时时间，默认值2000
+  ConnectTimeout: 5000
+  # 负载均衡超时处理时间，默认值5000
+  ReadTimeout: 3000
+  # 同一台实例最大重试次数,不包括首次调用，默认0
+  MaxAutoRetries: 0
+  # 重试负载均衡其他的实例最大重试次数,不包括首次调用，默认1
+  MaxAutoRetriesNextServer: 0
+  # 是否对所有操作都重试
+  OkToRetryOnAllOperations: false
+
+# ribbon的局部配置
+
+
+# hystrix.timeoutInMilliseconds   >=  ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1)
+# hystrix的超时时间，开关在feign.hystrix.enabled
+hystrix:
+  command:
+    # default全局有效，service id指定应用有效
+    default:
+      execution:
+        timeout:
+          # 如果enabled设置为false，则请求超时交给ribbon控制,为true,则超时作为熔断根据
+          enabled: true
+        isolation:
+          thread:
+            # 断路器超时时间，默认1000ms
+            timeoutInMilliseconds: 10000
+      circuitBreaker:
+        # 触发熔断的最小请求次数，默认20次，当请求5次失败时，会触发熔断，即断路器打开
+        requestVolumeThreshold: 5
+        # 熔断多少秒后尝试请求，默认5秒
+        sleepWindowInMilliseconds: 20000
+        # 触发熔断的失败请求最小占比，默认50%
+        errorThresholdPercentages: 50
+  # 把监控地址加入proxyStreamAllowList
+#  dashboard:
+#    proxy-stream-allow-list: "localhost"
+
+#logging:
+#  level:
+#    org: trace
