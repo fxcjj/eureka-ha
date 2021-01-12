@@ -136,8 +136,8 @@ a) 本案例使用eureka02,eureka03项目。
 b) 分别将eureka02部署到虚拟机131机器上，并启动。将eureka03部署到虚拟机135机器上，并启动。
 c) 测试
 分别访问地址观察结果
-http://192.168.6.131:17651
-http://192.168.6.135:17652
+http://192.168.6.131:17652
+http://192.168.6.135:17653
 观察DS replicas, registered-replicas, unavailable-replicas, available-replicas
 
 // 源码
