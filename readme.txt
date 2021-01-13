@@ -147,9 +147,12 @@ spring.application.name可以不相同，但eureka.instance.appname要一致，�
 即 spring.application.name相同或者eureka.instance.appname相同。
 
 
+参考
 // 源码
 https://www.jianshu.com/p/8b69f97b0fdc
 // 在线扩充eureka节点
 https://www.jianshu.com/p/fbe5574ba6e8
 // spring cloud Eureka 之配置信息
-https://blog.51cto.com/881206524/2117014
+https://blog.51cto.com/881206524/211701
+// eureka-high-availability
+https://www.kpromise.top/eureka-high-availability-cluster/4
