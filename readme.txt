@@ -140,7 +140,16 @@ http://192.168.6.131:17652
 http://192.168.6.135:17653
 观察DS replicas, registered-replicas, unavailable-replicas, available-replicas
 
+在各项目的配置文件中，
+hostname可配置为域名或者启动eureka机器的IP（${spring.cloud.client.ip-address}），前提要配置hosts文件。
+defaultZone可配置为对应节点域名或者对应节点IP，前提要配置hosts文件。
+spring.application.name可以不相同，但eureka.instance.appname要一致，如果两者在各项目配置文件都不相同，则available-replicas为空，
+即 spring.application.name相同或者eureka.instance.appname相同。
+
+
 // 源码
 https://www.jianshu.com/p/8b69f97b0fdc
 // 在线扩充eureka节点
 https://www.jianshu.com/p/fbe5574ba6e8
+// spring cloud Eureka 之配置信息
+https://blog.51cto.com/881206524/2117014
